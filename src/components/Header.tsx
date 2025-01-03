@@ -12,7 +12,7 @@ export default function Header() {
   };
   return (
     <>
-      <header className="flex justify-between bg-white p-4 border-b border-gray-200 items-center">
+      <header className="flex justify-between bg-white/60 p-2 border-b2 border-white/60 items-center">
         <Link to="/">
           <img src="/logo.svg" alt="logo" />
         </Link>
@@ -24,7 +24,7 @@ export default function Header() {
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm text-gray-900 bg-white border border-gray-300 rounded-lg px-5 py-2.5 hover:bg-gray-100 font-medium"
+                className="text-sm text-gray-800 bg-white border border-gray-300 rounded-lg px-5 py-2.5 hover:bg-gray-100 font-medium"
               >
                 로그아웃
               </button>
@@ -33,13 +33,13 @@ export default function Header() {
             <>
               <Link
                 to="/login"
-                className="text-sm text-gray-900 bg-white border border-gray-300 rounded-lg px-5 py-2.5 hover:bg-gray-100 font-medium"
+                className="text-sm text-gray-800 bg-white border border-gray-300 rounded-lg px-5 py-2.5 hover:bg-gray-100 font-medium"
               >
                 로그인
               </Link>
               <Link
                 to="/signup"
-                className="text-sm text-gray-900 bg-white border border-gray-300 rounded-lg px-5 py-2.5 hover:bg-gray-100 font-medium"
+                className="text-sm text-gray-800 bg-white border border-gray-300 rounded-lg px-5 py-2.5 hover:bg-gray-100 font-medium"
               >
                 회원가입
               </Link>

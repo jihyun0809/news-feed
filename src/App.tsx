@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./Layout";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -13,8 +15,8 @@ function App() {
           <Route path="/feeds/create" element={"/추가페이지"} />
           <Route path="/mypage" element={"/마이 페이지"} />
         </Route>
-        <Route path="/signup" element={"/회원가입 페이지"} />
-        <Route path="/login" element={"/로그인 페이지"} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
