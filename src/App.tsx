@@ -4,6 +4,7 @@ import Layout from "./Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/feeds/:id" element={"/상세페이지"} />
           <Route path="/feeds/create" element={"/추가페이지"} />
-          <Route path="/mypage" element={"/마이 페이지"} />
+          <Route path="/mypage" element={<MyPage />} />
         </Route>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
