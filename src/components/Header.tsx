@@ -9,7 +9,7 @@ export default function Header() {
   };
   return (
     <>
-      <header className="flex justify-between bg-white p-4 border-b border-gray-200 items-center">
+      <header className="flex justify-between bg-white opacity-80 p-2 border-b border-gray-200 items-center">
         <Link to="/">
           <img src="/logo.svg" alt="logo" />
         </Link>
