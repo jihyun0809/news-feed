@@ -1,26 +1,20 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import supabase from "../utils/supabase.ts";
 
 const Login = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmit = async (data: { email: string; password: string }) => {
     try {
       const { error } = await supabase.auth.signInWithPassword({
-        email: values.email,
-        password: values.password,
+        email: data.email,
+        password: data.password,
       });
 
       if (error) {
@@ -39,7 +33,10 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl font-bold">로그인</h1>
-      <form className="flex flex-col gap-4 w-80" onSubmit={onSubmit}>
+      <form
+        className="flex flex-col gap-4 w-80"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="text-sm">
             이메일
@@ -47,13 +44,21 @@ const Login = () => {
           <input
             className="border border-gray-300 rounded-md p-2"
             id="email"
-            name="email"
             type="email"
             placeholder="이메일을 입력해주세요."
-            value={values.email}
-            onChange={handleChange}
-            required
+            {...register("email", {
+              required: "이메일을 입력해주세요.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "유효한 이메일 주소를 입력해주세요.",
+              },
+            })}
           />
+          {errors.email && (
+            <span className="text-red-500 text-sm">
+              {errors.email.message as string}
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="password" className="text-sm">
@@ -61,17 +66,25 @@ const Login = () => {
           </label>
           <input
             id="password"
-            name="password"
             type="password"
             className="border border-gray-300 rounded-md p-2"
             placeholder="비밀번호를 입력해주세요."
-            value={values.password}
-            onChange={handleChange}
-            required
+            {...register("password", {
+              required: "비밀번호를 입력해주세요.",
+              minLength: {
+                value: 8,
+                message: "비밀번호는 최소 8자리 이상이어야 합니다.",
+              },
+            })}
           />
+          {errors.password && (
+            <span className="text-red-500 text-sm">
+              {errors.password.message as string}
+            </span>
+          )}
         </div>
         <button
-          className="py-2 px-4 bg-red-200  text-gray-700  hover:bg-red-300 transition-colors rounded-md"
+          className="py-2 px-4 bg-red-200 text-gray-700 hover:bg-red-300 transition-colors rounded-md"
           type="submit"
         >
           로그인
