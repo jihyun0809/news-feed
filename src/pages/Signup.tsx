@@ -142,13 +142,13 @@ const Signup = () => {
           />
         </div>
         <button
-          className="py-2 px-4 bg-blue-500 text-white rounded-md"
+          className="py-2 px-4 bg-red-200  text-gray-700  hover:bg-red-300 transition-colors rounded-md"
           type="submit"
         >
           회원가입
         </button>
         <Link
-          className="py-2 px-4 text-center text-blue-500 border border-blue-500 rounded-md"
+          className="py-2 px-4 text-center bg-yellow-100 text-gray-700 rounded-md hover:bg-yellow-200 transition-colors"
           to="/login"
         >
           로그인하러 가기
