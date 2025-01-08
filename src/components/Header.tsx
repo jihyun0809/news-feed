@@ -1,15 +1,15 @@
 import { Link, Outlet } from "react-router-dom";
 import supabase from "../utils/supabase";
+import { useAuthStore } from "../stores/useAuthStore";
 
 export default function Header() {
-  const user = null;
-
+  const { user } = useAuthStore();
   const handleLogout = async () => {
     await supabase.auth.signOut();
   };
   return (
     <>
-      <header className="flex justify-between bg-white opacity-80 p-2 border-b border-gray-200 items-center">
+      <header className="flex justify-between bg-white opacity-80 p-2 border-b border-gray-200 items-center mb-10">
         <Link to="/">
           <img src="/logo.svg" alt="logo" />
         </Link>
@@ -44,6 +44,9 @@ export default function Header() {
           )}
         </div>
       </header>
+      <div className="max-w-screen-lg mx-auto min-h-[calc(100vh-100px)] px-10 mb-10">
+        <Outlet />
+      </div>
     </>
   );
 }

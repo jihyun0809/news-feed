@@ -3,20 +3,23 @@ import { useForm } from "react-hook-form";
 import supabase from "../utils/supabase.ts";
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
-  const navigate = useNavigate();
+  } = useForm<LoginFormInputs>(); // 제네릭 타입 추가
 
-  const onSubmit = async (data: { email: string; password: string }) => {
+  type LoginFormInputs = {
+    email: string;
+    password: string;
+  };
+  const onSubmit = async (data: LoginFormInputs) => {
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
-
       if (error) {
         if (error?.message === "Invalid login credentials") {
           return alert("이메일 또는 비밀번호를 확인해주세요.");

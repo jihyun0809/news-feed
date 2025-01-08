@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import supabase from "../utils/supabase";
+import supabase from "../utils/supabase.ts";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -19,13 +19,12 @@ const Signup = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 이메일 형식 검증
+    // 이메일 형식 검증 추가
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(values.email)) {
       return alert("올바른 이메일 형식이 아닙니다.");
     }
 
-    // 비밀번호 검증
     if (values.password.length < 8) {
       return alert("비밀번호는 8자 이상이어야 합니다.");
     }
@@ -38,6 +37,11 @@ const Signup = () => {
       const { error: signUpError, data } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
+        options: {
+          data: {
+            nickname: values.nickname,
+          },
+        },
       });
 
       if (signUpError) {
@@ -48,32 +52,19 @@ const Signup = () => {
       }
 
       // users 테이블에 데이터 삽입
-      const userId = data.user?.id;
-      if (!userId) {
-        throw new Error(
-          "회원가입에 실패했습니다. 사용자 ID를 가져올 수 없습니다."
-        );
-      }
-
       const { error: userInsertError } = await supabase.from("users").insert({
-        id: userId,
         email: values.email,
         nickname: values.nickname,
+        id: data.user?.id, // auth의 user id를 저장
       });
-
+      
       if (userInsertError) {
-        console.error("User Insert Error:", userInsertError);
-        return alert(`회원 정보 저장 실패: ${userInsertError.message}`);
+        throw userInsertError;
       }
 
       navigate("/");
-    } catch (error) {
-      console.error("Unexpected Error:", error);
-      if (error instanceof Error) {
-        alert(`회원가입에 실패했습니다: ${error.message}`);
-      } else {
-        alert("알 수 없는 오류가 발생했습니다.");
-      }
+    } catch (error: unknown) {
+      return alert(`회원가입에 실패했습니다. ${error}`);
     }
   };
 
@@ -142,13 +133,13 @@ const Signup = () => {
           />
         </div>
         <button
-          className="py-2 px-4 bg-red-200  text-gray-700  hover:bg-red-300 transition-colors rounded-md"
+          className="py-2 px-4 bg-blue-500 text-white rounded-md"
           type="submit"
         >
           회원가입
         </button>
         <Link
-          className="py-2 px-4 text-center bg-yellow-100 text-gray-700 rounded-md hover:bg-yellow-200 transition-colors"
+          className="py-2 px-4 text-center text-blue-500 border border-blue-500 rounded-md"
           to="/login"
         >
           로그인하러 가기
