@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import FeedForm from "../components/FeedForm";
+import Feed from "../components/Feed";
 
 const Home = () => {
   return (
@@ -15,7 +14,7 @@ const Home = () => {
         </Link>
       </div>
       <div>
-        <FeedForm/>
+        <Feed />
       </div>
     </div>
   );
