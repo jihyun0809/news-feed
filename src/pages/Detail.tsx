@@ -12,10 +12,10 @@ const Detail = () => {
           <span className="text-gray-600">뒤로가기</span>
         </Link>
         <div className="flex gap-2">
-          <button className="bg-yellow-300 text-black px-4 py-2 rounded-lg">
+          <button className="bg-yellow-200 opacity-90 text-black px-4 py-2 rounded-lg">
             수정
           </button>
-          <button className="bg-red-500 text-white px-4 py-2 rounded-lg">
+          <button className="bg-red-500 opacity-90 text-white px-4 py-2 rounded-lg">
             삭제
           </button>
         </div>
