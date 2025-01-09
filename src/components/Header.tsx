@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import supabase from "../utils/supabase";
 import { useAuthStore } from "../stores/useAuthStore";
 
@@ -44,9 +44,6 @@ export default function Header() {
           )}
         </div>
       </header>
-      <div className="max-w-screen-lg mx-auto min-h-[calc(100vh-100px)] px-10 mb-10">
-        <Outlet />
-      </div>
     </>
   );
 }

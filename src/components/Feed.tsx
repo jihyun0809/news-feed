@@ -1,66 +1,43 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Feed = () => {
-  //더미더미데이터
-  const posts = [
-    {
-      id: 1,
-      title: "안녕!",
-      content: "안녕안녕",
-      createdAt: "2024.11.11",
-      commentsCount: 4,
-      votes: 2,
-    },
-    {
-      id: 2,
-      title: "안녕",
-      content: "안녕",
-      createdAt: "2024.11.12",
-      commentsCount: 1,
-      votes: 0,
-    },
-    {
-      id: 3,
-      title: "안녕?",
-      content: "안녕?",
-      createdAt: "2024.11.12",
-      commentsCount: 0,
-      votes: 1,
-    },
-    {
-      id: 4,
-      title: "안녕",
-      content: "안녕안녕?",
-      createdAt: "2024.12.27",
-      commentsCount: 1,
-      votes: 0,
-    },
-  ];
-
   return (
     <div className="flex flex-col gap-4">
-      {posts.map((post) => (
-        <div
-          key={post.id}
-          className="flex justify-between bg-white shadow-md p-6 rounded-lg"
-        >
-          <div className="flex flex-col items-center">
-            <button className="text-green-300 text-xl font-bold">▲</button>
-            <p className="text-gray-700">{post.votes}</p>
-            <button className="text-gray-500 text-xl font-bold">▼</button>
-          </div>
-          <div className="flex-1 px-6 min-w-0 flex flex-col gap-2">
-            <h2 className="text-blue-950 text-xl font-bold">{post.title}</h2>
-            <p className="text-gray-600 truncate">{post.content}</p>
-            <p className="text-sm text-gray-400">작성일: {post.createdAt}</p>
-          </div>
-          <div className="flex items-center">
-            <div className="flex items-center gap-1 text-gray-500">
-              <span>{post.commentsCount}</span>
-            </div>
+      <Link
+        to="/feeds/1"
+        className="flex justify-between bg-white shadow-md p-6 rounded-lg"
+      >
+        <div className="flex flex-col items-center">
+          <button className="text-green-300 text-xl font-bold">▲</button>
+          <div className="text-gray-700">1</div>
+          <button className="text-gray-500 text-xl font-bold">▼</button>
+        </div>
+        <div className="flex-1 px-6 min-w-0 flex flex-col gap-2">
+          <h2 className="text-blue-950 text-xl font-bold">제목</h2>
+          <p className="text-gray-600 truncate">내용</p>
+          <p className="text-right text-sm text-gray-400">작성일:2025.01.09</p>
+        </div>
+        <div className="flex items-center">
+          <div className="flex items-center gap-1 text-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M20.25 4.5H3.75a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h4.5l3 3v-3h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25z"
+              />
+            </svg>
+            <span>1</span>
           </div>
         </div>
-      ))}
+      </Link>
     </div>
   );
 };

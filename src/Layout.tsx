@@ -6,8 +6,9 @@ const Layout = () => {
     <div>
       {/* 여기에 다른 페이지들이 들어옵니다. */}
       <Header />
-      <Outlet />
-      <h1>Footer</h1>
+      <div className="max-w-screen-lg mx-auto px-10 mb-10">
+        <Outlet />
+      </div>
     </div>
   );
 };
