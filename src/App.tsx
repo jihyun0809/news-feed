@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import MyPage from "./pages/MyPage";
 import AuthProvider from "./providers/AuthProvider";
 import Detail from "./pages/Detail";
+import CreatePage from "./pages/CreatePage";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/feeds/:id" element={<Detail />} />
-            <Route path="/feeds/create" element={"/추가페이지"} />
+            <Route path="/feeds/create" element={<CreatePage />} />
+            <Route path="/feeds/update/:id" element={<CreatePage />} />
             <Route path="/mypage" element={<MyPage />} />
           </Route>
           <Route path="/signup" element={<Signup />} />

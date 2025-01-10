@@ -13,7 +13,9 @@ const Home = () => {
           글쓰기
         </Link>
       </div>
-      <div>
+      <div className="flex flex-col gap-2.5">
+        <Feed />
+        <Feed />
         <Feed />
       </div>
     </div>
