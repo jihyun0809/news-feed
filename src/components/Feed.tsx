@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Feed = () => {
+const Feed = ({ feed }) => {
   return (
     <div className="flex flex-col gap-4">
       <Link
@@ -14,8 +14,8 @@ const Feed = () => {
           <button className="text-gray-500 text-xl font-bold">▼</button>
         </div>
         <div className="flex-1 px-6 min-w-0 flex flex-col gap-2">
-          <h2 className="text-blue-950 text-xl font-bold">제목</h2>
-          <p className="text-gray-600 truncate">내용</p>
+          <h2 className="text-blue-950 text-xl font-bold">{feed.title}</h2>
+          <p className="text-gray-600 truncate">{feed.content}</p>
           <p className="text-right text-sm text-gray-400">작성일:2025.01.09</p>
         </div>
         <div className="flex items-center">
