@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* 전체 배경색 주기 */
+@layer base {
+  body {
+    @apply bg-gradient-to-l from-indigo-100 via-red-100 to-yellow-100;
+  }
+}
