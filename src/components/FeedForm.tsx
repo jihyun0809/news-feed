@@ -1,9 +1,13 @@
-import React from "react";
-
-const FeedForm = () => {
+export default function FeedForm({
+  pageTitle,
+  children,
+}: {
+  pageTitle: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">제목</h1>
+      <h1 className="text-2xl font-bold mb-6">{pageTitle}</h1>
       <form className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="title" className="text-lg font-bold text-gray-800">
@@ -28,12 +32,8 @@ const FeedForm = () => {
             className="p-3 rounded-lg border border-gray-300 h-[400px] resize-none"
           />
         </div>
-        <button className="flex flex-col items-center bg-green-200 opacity-80 p-3 rounded-md">
-          저장
-        </button>
+        {children}
       </form>
     </div>
   );
-};
-
-export default FeedForm;
+}
