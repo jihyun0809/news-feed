@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getFeedById } from "../api/feedApi";
+import { fetchCommentsWithUserByFeedId } from "../api/commentApi";
+import { fetchUpvotesByFeedId } from "../api/upvoteApi";
 
 const Detail = () => {
   const { id } = useParams();
@@ -15,7 +17,25 @@ const Detail = () => {
       return getFeedById(id);
     },
   });
+  const { data: upvotes } = useQuery({
+    queryKey: ["feeds", id, "upvotes"],
+    queryFn: () => {
+      if (!id) {
+        throw new Error("id가 없습니다");
+      }
+      return fetchUpvotesByFeedId(id);
+    },
+  });
 
+  const { data: comments } = useQuery({
+    queryKey: ["feeds", id, "comments"],
+    queryFn: () => {
+      if (!id) {
+        throw new Error("id가 없습니다");
+      }
+      return fetchCommentsWithUserByFeedId(id);
+    },
+  });
   if (isLoading) return <div>로딩중 ...</div>;
   if (error) return <div>에러발생 : {error.message}</div>;
 
@@ -38,23 +58,30 @@ const Detail = () => {
       </div>
 
       {/* 게시글 내용 */}
-      <div className="flex-1 bg-white rounded-lg shadow-md p-6 px-6 min-w-0 flex flex-col gap-2">
-        <h2 className="text-blue-950 text-xl font-bold">{data.title}</h2>
-        <p className="text-gray-600 truncate">{data.content}</p>
-        <p className="text-right text-sm text-gray-400">
-          {new Date(data.created_at).toLocaleDateString()}
-        </p>
+      <div className="flex flex-col gap-4">
+        <div className="flex-1 bg-white rounded-lg shadow-md p-6 px-6 min-w-0 flex flex-col gap-2">
+          <div className="flex flex-col items-center">
+            <button className="text-green-300 text-xl font-bold">▲</button>
+            <div className="text-gray-700">{upvotes?.length}</div>
+            <button className="text-gray-500 text-xl font-bold">▼</button>
+          </div>
+          <h2 className="text-blue-950 text-xl font-bold">{data.title}</h2>
+          <p className="text-gray-600 truncate">{data.content}</p>
+          <p className="text-right text-sm text-gray-400">
+            {new Date(data.created_at).toLocaleDateString()}
+          </p>
+        </div>
       </div>
-
       {/* 댓글 목록 */}
       <div className="p-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-lg font-semibold text-gray-800">1 Comments</h3>
+        <h3 className="text-lg font-semibold text-gray-800">
+          {comments?.length}
+        </h3>
         <div className="flex items-start gap-4 mt-4">
           <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">
             <span className="text-black">A</span>
           </div>
           <div>
-            {" "}
             <p className="text-gray-800 font-semibold">aaaa@naver.com</p>
             <p className="text-gray-600 mt-1">asdfasdfasdf</p>
           </div>
