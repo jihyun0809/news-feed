@@ -40,44 +40,42 @@ const Feed = ({ feed }: { feed: FeedProps }) => {
     return <div>에러가 발생했습니다: {upvotesCountError.message}</div>;
 
   return (
-    <div className="flex flex-col gap-4">
-      <Link
-        to="/feeds/1"
-        className="flex justify-between bg-white shadow-md p-6 rounded-lg"
-      >
-        <div className="flex flex-col items-center">
-          <button className="text-green-300 text-xl font-bold">▲</button>
-          <div className="text-gray-700">{upvotesCount}</div>
-          <button className="text-gray-500 text-xl font-bold">▼</button>
+    <Link
+      to={`/feeds/${feed.id}`}
+      className="flex justify-between bg-white shadow-md p-6 rounded-lg"
+    >
+      <div className="flex flex-col items-center">
+        <button className="text-green-300 text-xl font-bold">▲</button>
+        <div className="text-gray-700">{upvotesCount}</div>
+        <button className="text-gray-500 text-xl font-bold">▼</button>
+      </div>
+      <div className="flex-1 px-6 min-w-0 flex flex-col gap-2">
+        <h2 className="text-blue-950 text-xl font-bold">{feed.title}</h2>
+        <p className="text-gray-600 truncate">{feed.content}</p>
+        <p className="text-right text-sm text-gray-400">
+          {new Date(feed.created_at).toLocaleDateString()}
+        </p>
+      </div>
+      <div className="flex items-center">
+        <div className="flex items-center gap-1 text-gray-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M20.25 4.5H3.75a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h4.5l3 3v-3h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25z"
+            />
+          </svg>
+          <span>{commentsCount}</span>
         </div>
-        <div className="flex-1 px-6 min-w-0 flex flex-col gap-2">
-          <h2 className="text-blue-950 text-xl font-bold">{feed.title}</h2>
-          <p className="text-gray-600 truncate">{feed.content}</p>
-          <p className="text-right text-sm text-gray-400">
-            {new Date(feed.created_at).toLocaleDateString()}
-          </p>
-        </div>
-        <div className="flex items-center">
-          <div className="flex items-center gap-1 text-gray-500">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M20.25 4.5H3.75a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h4.5l3 3v-3h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25z"
-              />
-            </svg>
-            <span>{commentsCount}</span>
-          </div>
-        </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 

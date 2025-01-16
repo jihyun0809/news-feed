@@ -1,8 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Feed from "../components/Feed";
+import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getFeedById } from "../api/feedApi";
 
 const Detail = () => {
+  const { id } = useParams();
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["feeds", id],
+    queryFn: () => {
+      if (!id) {
+        throw new Error("id가 없습니다");
+      }
+      return getFeedById(id);
+    },
+  });
+
+  if (isLoading) return <div>로딩중 ...</div>;
+  if (error) return <div>에러발생 : {error.message}</div>;
+
   return (
     <div className="flex flex-col gap-6 p-6min-h-screen">
       {/* 뒤로가기 버튼 */}
@@ -22,7 +38,13 @@ const Detail = () => {
       </div>
 
       {/* 게시글 내용 */}
-      <Feed />
+      <div className="flex-1 bg-white rounded-lg shadow-md p-6 px-6 min-w-0 flex flex-col gap-2">
+        <h2 className="text-blue-950 text-xl font-bold">{data.title}</h2>
+        <p className="text-gray-600 truncate">{data.content}</p>
+        <p className="text-right text-sm text-gray-400">
+          {new Date(data.created_at).toLocaleDateString()}
+        </p>
+      </div>
 
       {/* 댓글 목록 */}
       <div className="p-6 bg-white rounded-lg shadow-md">
@@ -32,6 +54,7 @@ const Detail = () => {
             <span className="text-black">A</span>
           </div>
           <div>
+            {" "}
             <p className="text-gray-800 font-semibold">aaaa@naver.com</p>
             <p className="text-gray-600 mt-1">asdfasdfasdf</p>
           </div>
