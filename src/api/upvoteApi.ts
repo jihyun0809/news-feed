@@ -10,3 +10,12 @@ export const fetchUpvotes = async (feedId: string) => {
   if (error) throw new Error(`Failed to fetch upvotes count: ${error.message}`);
   return count;
 };
+export const fetchUpvotesByFeedId = async (feedId: string | undefined) => {
+  if (!feedId) throw new Error("feedId는 필수입니다");
+  const { data, error } = await supabase
+    .from("upvotes")
+    .select("*")
+    .eq("feed_id", feedId);
+  if (error) throw error;
+  return data;
+};
